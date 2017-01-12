@@ -1,0 +1,11 @@
+﻿@using MongoDB.Driver.GridFS;
+
+@{
+    if (ViewBag.Photos != null)
+    {
+        foreach (GridFSFileInfo fileInfo in ViewBag.Photos)
+        {
+            <img class="thumbnail col-md-4" src="@Url.Action("Photos", new { id = fileInfo.Id })" />
+        }
+    }
+}
