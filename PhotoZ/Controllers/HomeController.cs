@@ -1,12 +1,10 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
-using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PhotoZ.Controllers
@@ -27,10 +25,18 @@ namespace PhotoZ.Controllers
         }
 
         [HttpGet]
-        public ActionResult Photos(ObjectId id)
+        public ActionResult GetPhoto(string id)
         {
             IGridFSBucket bucket = GetGridFSBucket();
-            return File(bucket.DownloadAsBytes(id), "image/*");
+            ObjectId objectId = new ObjectId(id);
+            //GridFSFileInfo fileInfo = bucket.Find(Builders<GridFSFileInfo>.Filter.Eq(p => p.Id, objectId)).First();
+            return File(bucket.DownloadAsBytes(objectId), "image/jpg");
+        }
+
+        [HttpDelete]
+        public ActionResult DeletePhoto(string id)
+        {
+            return View("Index");
         }
 
         public ActionResult Foo()
@@ -45,8 +51,8 @@ namespace PhotoZ.Controllers
 
         private IGridFSBucket GetGridFSBucket()
         {
-            MongoClient mongo = new MongoClient();
-            IMongoDatabase db = mongo.GetDatabase("test");
+            MongoClient mongo = new MongoClient("mongodb://" + ConfigurationManager.AppSettings["DatabaseServer"]);
+            IMongoDatabase db = mongo.GetDatabase(ConfigurationManager.AppSettings["DatabaseName"]);
             return new GridFSBucket(db);
         }
     }

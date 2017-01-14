@@ -1,14 +1,13 @@
 ﻿body {
     background-color: black;
-    color:white;
+    color: white;
 }
 
-
-.thumbnail{
-    max-width:350px;
-    margin:4px;
-    display:block;
+.thumbnail {
+    max-width: 350px;
+    margin: 4px;
+    display: block;
     border: 1px solid #ccc;
-    padding:4px;
-    background-color:transparent;
+    padding: 4px;
+    background-color: transparent;
 }
