@@ -30,17 +30,17 @@
 
     }
 </script>
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
-{
+
+<form name="form1" method="post" enctype="multipart/form-data" action="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "Photos"})">
     <div class="form-group">
         <label>Choose a photo to upload</label>
-        <input type="text" id="name" class="form-control" placeholder="Photo Name"/>
+        <input type="text" id="name" class="form-control" placeholder="Photo Name" />
     </div>
     <div class="form-group">
         <div class="input-group">
             <label class="input-group-btn">
                 <span class="btn btn-primary">
-                    Browse&hellip; <input type="file" style="display: none;" id="file-browser" >
+                    Browse&hellip; <input type="file" style="display: none" id="file-browser" accept=".jpg">
                 </span>
             </label>
             <input type="text" class="form-control" readonly>
@@ -48,6 +48,6 @@
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary col-md-4 col-md-offset-4">Submit</button>
-        <input  type="button" onclick="alert($('#file-browser').get(0).files[0].name)"/>
+        <input type="button" onclick="alert($('#file-browser').get(0).files[0].name)" />
     </div>
-}
+</form>
