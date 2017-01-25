@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -34,7 +35,7 @@ namespace PhotoZ.Controllers
             return result;
         }
 
-        public IHttpActionResult Post()
+        public async Task<IHttpActionResult> Post()
         {
             // Check if the request contains multipart/form-data.
             if (!Request.Content.IsMimeMultipartContent())
@@ -45,18 +46,25 @@ namespace PhotoZ.Controllers
             // Read the form data.
             string root = HttpContext.Current.Server.MapPath("~/App_Data");
             var provider = new MultipartFormDataStreamProvider(root);
-            Request.Content.ReadAsMultipartAsync(provider);
+            await Request.Content.ReadAsMultipartAsync(provider);
 
             // This illustrates how to get the file names.
             foreach (MultipartFileData file in provider.FileData)
             {
                 IGridFSBucket bucket = GetGridFSBucket();
-                //bucket.UploadFromBytes(,)
-
-                //Trace.WriteLine(file.Headers.ContentDisposition.FileName);
-                //Trace.WriteLine("Server file path: " + file.LocalFileName);
+                using (FileStream fileStream = new FileStream(file.LocalFileName, FileMode.Open))
+                {
+                    string fileName = provider.FormData["name"];
+                    bucket.UploadFromStream(
+                        String.IsNullOrEmpty(fileName) ? file.Headers.ContentDisposition.FileName: fileName,
+                        fileStream,
+                        new GridFSUploadOptions { ContentType = file.Headers.ContentType.ToString() }
+                    );
+                }
+                File.Delete(file.LocalFileName);
             }
-            return Ok();
+
+            return RedirectToRoute("Default", new { Controller = "Home", Action = "Index" });
         }
 
         public IHttpActionResult Delete(string id)
