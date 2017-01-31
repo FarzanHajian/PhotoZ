@@ -1,5 +1,18 @@
 ﻿@using PhotoZ.Models;
 
+<script type="text/javascript">
+    function deletePhoto(id) {
+        $.ajax({
+            url: '@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "Photos"})/' + id,
+            type: 'DELETE',
+            success: function (result) {
+                $('#' + id).hide({ duration: 500 });
+                toastr.options = { "timeOut": 2000 };
+                toastr.success('The photo was deleted');
+            }
+        });
+    }
+</script>
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -18,9 +31,10 @@
     {
         foreach (FileViewInfo fileInfo in ViewBag.Photos)
         {
-            <div class="col-md-4">
+            <div id="@fileInfo.Id" class="col-md-4">
                 <div style="text-align:center; cursor:default">@fileInfo.Filename</div>
                 <img thumbnail class="thumbnail" style="cursor:pointer" alt="@fileInfo.Filename" src="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "Photos", id = fileInfo.Id })" />
+                <span class="delete" onclick="deletePhoto('@fileInfo.Id')">&times;</span>
             </div>
         }
     }
