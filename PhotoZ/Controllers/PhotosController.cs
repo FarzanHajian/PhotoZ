@@ -2,7 +2,6 @@
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -56,7 +55,7 @@ namespace PhotoZ.Controllers
                 {
                     string fileName = provider.FormData["name"];
                     bucket.UploadFromStream(
-                        String.IsNullOrEmpty(fileName) ? file.Headers.ContentDisposition.FileName: fileName,
+                        String.IsNullOrEmpty(fileName) ? file.Headers.ContentDisposition.FileName : fileName,
                         fileStream,
                         new GridFSUploadOptions { ContentType = file.Headers.ContentType.ToString() }
                     );

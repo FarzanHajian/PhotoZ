@@ -4,7 +4,6 @@
 }
 
 .thumbnail {
-    max-height: 300px;
     max-height: 350px;
     max-width: 350px;
     margin: 4px;
@@ -95,12 +94,12 @@
     transition: 0.3s;
 }
 
-.close:hover,
-.close:focus {
+    .close:hover,
+    .close:focus {
         color: #bbb;
         text-decoration: none;
         cursor: pointer;
-}
+    }
 
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
@@ -118,9 +117,57 @@
     font-weight: bold;
     transition: 0.3s;
 }
-.delete:hover,
-.delete:focus {
+
+    .delete:hover,
+    .delete:focus {
         color: #f1f1f1;
         text-decoration: none;
         cursor: pointer;
+    }
+
+/* Tooltip container */
+.maintooltip {
+    /*position: relative;*/
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
 }
+
+    /* Tooltip text */
+    .maintooltip .maintooltiptext {
+        font-size: 14px;
+        font-weight: normal;
+        visibility: hidden;
+        width: 120px;
+        background-color: rgb(128, 0, 0);
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 1s;
+    }
+
+        /* Tooltip arrow */
+        .maintooltip .maintooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .maintooltip:hover .maintooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
