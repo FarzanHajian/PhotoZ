@@ -9,7 +9,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 </head>
-<body onload="initializeModal()">
+<body onload="initializeModal(); initializeBackToTopButton()">
     <div id="main-menu" class="navbar navbar-inverse //navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -40,6 +40,7 @@
         </div>
     </div>
 
+    <a href="#" class="back-to-top">Back to Top</a>
     @RenderSection("scripts", required: false)
 </body>
 </html>

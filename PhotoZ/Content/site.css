@@ -6,10 +6,9 @@
 .photoz-thumbnail {
     max-height: 350px;
     max-width: 350px;
-    margin: 4px;
     display: block;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     padding: 4px;
     background-color: transparent;
     transition: .3s;
@@ -17,12 +16,49 @@
 }
 
     .photoz-thumbnail:hover {
-        opacity: 0.7;
+        opacity: 0.5;
     }
 
+        .photoz-thumbnail:hover + .photoz-thumbnail-actionbar {
+            opacity: 1;
+        }
+
 .photoz-thumbnail-container {
-    margin-bottom: 50px;
+    height: 350px;
+    width: 350px;
+    margin: 20px;
+    padding-left: 0px; /* Cancelling Bootstrap col-md-4 padding effect */
 }
+
+.photoz-thumbnail-actionbar {
+    position: absolute;
+    cursor: default;
+    font-size: 20px;
+    padding: 0px 10px 5px 10px; /*Right padding does not affect the delete button becasue it is absolutly positioned. Instead, its right attribute works */
+    opacity: 0;
+    transition: 1s ease-out;
+}
+
+    .photoz-thumbnail-actionbar:hover {
+        opacity: 1;
+    }
+
+.delete {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    color: #bbb;
+    font-size: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .delete:hover,
+    .delete:focus {
+        color: #f1f1f1;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
 /* The Modal (background) */
 .modal {
@@ -112,23 +148,6 @@
     }
 }
 
-.delete {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: #bbb;
-    font-size: 30px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-    .delete:hover,
-    .delete:focus {
-        color: #f1f1f1;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
 /* Tooltip container */
 .photoz-tooltip {
     /*position: relative;*/
@@ -175,3 +194,22 @@
         visibility: visible;
         opacity: 1;
     }
+
+a.back-to-top {
+    display: none;
+    width: 60px;
+    height: 60px;
+    text-indent: -9999px;
+    position: fixed;
+    z-index: 999;
+    right: 20px;
+    bottom: 20px;
+    background: transparent url("up-arrow.png") no-repeat center 43%;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+a:hover.back-to-top {
+	background-color: #111;
+}
