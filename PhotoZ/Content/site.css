@@ -16,8 +16,12 @@
     cursor: pointer;
 }
 
-[thumbnail]:hover {
+.thumbnail:hover {
     opacity: 0.7;
+}
+
+.thumbnail-container{
+    margin-bottom:50px;
 }
 
 /* The Modal (background) */
