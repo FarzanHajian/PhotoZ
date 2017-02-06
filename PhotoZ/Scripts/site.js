@@ -3,7 +3,7 @@
     var modalImg = document.getElementById("imgModal");
     var captionText = document.getElementById("caption");
 
-    var thumbnails = document.querySelectorAll('.thumbnail');
+    var thumbnails = document.querySelectorAll('.photoz-thumbnail');
     for (index in thumbnails) {
         thumbnails[index].onclick = function () {
             modal.style.display = "block";

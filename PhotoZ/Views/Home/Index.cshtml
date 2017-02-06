@@ -8,7 +8,7 @@
             success: function (result) {
                 var div = $('#' + id);
                 div.hide({ duration: 500 });
-                var photoName = div.children("img.thumbnail").attr("alt")
+                var photoName = div.children("img.photoz-thumbnail").attr("alt")
                 toastr.options = { "timeOut": 2000 };
                 toastr.success('The photo "' + photoName + '" was deleted');
             }
@@ -34,13 +34,12 @@
     {
         foreach (FileViewInfo fileInfo in ViewBag.Photos)
         {
-            <div id="@fileInfo.Id" class="col-md-4 thumbnail-container">
+            <div id="@fileInfo.Id" class="col-md-4 photoz-thumbnail-container">
+                <img class="photoz-thumbnail" alt="@fileInfo.Filename" src="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "Photos", id = fileInfo.Id })" />
                 <div style="text-align:center; cursor:default">@fileInfo.Filename</div>
-                <img class="thumbnail" alt="@fileInfo.Filename" src="@Url.RouteUrl("DefaultApi", new { httproute = "", controller = "Photos", id = fileInfo.Id })" />
-                <div ></div>
-                <span class="delete maintooltip" onclick="deletePhoto('@fileInfo.Id')">
+                <span class="delete photoz-tooltip" onclick="deletePhoto('@fileInfo.Id')">
                     &times;
-                    <span class="maintooltiptext">Delete the photo?</span>
+                    <span class="photoz-tooltip-text">Delete the photo?</span>
                 </span>
             </div>
         }
